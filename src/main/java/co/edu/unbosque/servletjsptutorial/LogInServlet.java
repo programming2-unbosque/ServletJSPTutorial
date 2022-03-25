@@ -1,7 +1,11 @@
 package co.edu.unbosque.servletjsptutorial;
 
 import java.io.*;
+import java.util.List;
+import java.util.Optional;
 
+import co.edu.unbosque.servletjsptutorial.dtos.User;
+import co.edu.unbosque.servletjsptutorial.services.UserService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -21,8 +25,19 @@ public class LogInServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (username.equals("fabiancpl") && password.equals("123456")) {
-            request.setAttribute("role", "admin");
+        List<User> users = new UserService().getUsers().get();
+
+        User userFounded = users.stream()
+                .filter(user -> username.equals(user.getUsername()) && username.equals(user.getUsername()))
+                .findFirst()
+                .orElse(null);
+
+        if (userFounded != null) {
+            request.setAttribute("role", userFounded.getRole());
+
+            Cookie cookie = new Cookie("role", userFounded.getRole());
+            cookie.setMaxAge(20);
+            response.addCookie(cookie);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("./home.jsp");
             dispatcher.forward(request, response);
