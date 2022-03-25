@@ -5,10 +5,9 @@
         <title>JSP - Hello World</title>
     </head>
     <body>
-    <h1><%= "Hello, "+ request.getParameter("username") + "!" %>
-    </h1>
-    <h2><%= "Your role is " + request.getAttribute("role") %></h2>
-    <br/>
-    <a href="./index.html">Logout</a>
+        <h1><%= "Hello, "+ request.getParameter("username") + "!" %></h1>
+        <h3><%= "Your role is " + request.getAttribute("role") %></h3>
+        <br/>
+        <a href="./index.html">Logout</a>
     </body>
 </html>

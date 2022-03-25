@@ -15,31 +15,19 @@ public class LogInServlet extends HttpServlet {
         message = "Hello, ";
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         if (username.equals("fabiancpl") && password.equals("123456")) {
-            /*message += username + "!";
-
-            PrintWriter out = response.getWriter();
-            out.println("<html><body>");
-            out.println("<h1>" + message + "</h1>");
-            out.println("</body></html>");*/
-
             request.setAttribute("role", "admin");
 
-            try {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("./home.jsp");
-                dispatcher.forward(request, response);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher("./home.jsp");
+            dispatcher.forward(request, response);
 
         } else {
-            System.out.println("Unauthorized");
             response.sendRedirect("./401.html");
         }
     }
